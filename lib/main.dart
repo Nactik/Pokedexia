@@ -43,11 +43,24 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<Pokemon> _pokemons = [];
-
+  ScrollController _scrollController = new ScrollController();
   @override
   void initState() {
     super.initState();
-    fetchPaginedPokemon(1, 150);
+    fetchPaginedPokemon(1, 20);
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels >=
+          _scrollController.position.maxScrollExtent) {
+        fetchPaginedPokemon(_pokemons.length + 1, 20);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _scrollController.dispose();
   }
 
   @override
@@ -63,6 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.redAccent,
         body: SafeArea(
             child: ListView.separated(
+                controller: _scrollController,
                 padding: const EdgeInsets.all(8),
                 itemCount: _pokemons.length,
                 itemBuilder: (BuildContext context, int index) {
