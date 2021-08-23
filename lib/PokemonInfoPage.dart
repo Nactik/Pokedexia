@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pokeapi/model/pokemon/pokemon.dart';
 import 'package:pokeapi/pokeapi.dart';
 import 'package:pokedexia/Utils.dart';
+import 'package:pokedexia/widget/PokemonInfoHeader.dart';
 
 class PokemonInfoPage extends StatelessWidget {
   final Pokemon _pokemon;
@@ -12,7 +13,6 @@ class PokemonInfoPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Utils.getColorFromType(_pokemon.types[0].type.name),
       appBar: AppBar(
-        title: Text(_pokemon.name),
         backgroundColor: Utils.getColorFromType(_pokemon.types[0].type.name),
         elevation: 0,
       ),
@@ -22,15 +22,12 @@ class PokemonInfoPage extends StatelessWidget {
         children: [
           Positioned(
             top: 0,
-            child: Hero(
-              tag: _pokemon.id,
-              child: Image(image: NetworkImage(_pokemon.sprites.frontDefault)),
-            ),
+            child: PokemonInfoHeader(_pokemon),
           ),
           DraggableScrollableSheet(
             expand: true,
-            initialChildSize: 0.8,
-            minChildSize: 0.8,
+            initialChildSize: 0.7,
+            minChildSize: 0.7,
             maxChildSize: 1.0,
             builder: (context, scrollController) {
               return Container(
@@ -44,10 +41,7 @@ class PokemonInfoPage extends StatelessWidget {
                   controller: scrollController,
                   child: Column(
                     children: [
-                      Card(child: Text("coucou")),
-                      Card(child: Text("coucou")),
-                      Card(child: Text("coucou")),
-                      Card(child: Text("coucou")),
+                      Text(_pokemon.species.name),
                     ],
                   ),
                 ),

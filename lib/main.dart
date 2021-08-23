@@ -75,18 +75,42 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         backgroundColor: Colors.redAccent,
         body: SafeArea(
-            child: ListView.separated(
-                controller: _scrollController,
-                padding: const EdgeInsets.all(8),
-                itemCount: _pokemons.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return PokemonCard(_pokemons[index]);
-                },
-                separatorBuilder: (BuildContext context, int index) {
-                  return SizedBox(
-                    height: 10,
-                  );
-                })));
+            child: Stack(children: [
+          Positioned(
+              top: -100,
+              left: 120,
+              child: Opacity(
+                opacity: 0.7,
+                child: Image.asset(
+                  'assets/images/pokeball.png',
+                  width: 400,
+                  color: Colors.white,
+                ),
+              )),
+          Positioned(
+              top: MediaQuery.of(context).size.height - 350,
+              right: 120,
+              child: Opacity(
+                opacity: 0.7,
+                child: Image.asset(
+                  'assets/images/pokeball.png',
+                  width: 400,
+                  color: Colors.white,
+                ),
+              )),
+          ListView.separated(
+              controller: _scrollController,
+              padding: const EdgeInsets.all(8),
+              itemCount: _pokemons.length,
+              itemBuilder: (BuildContext context, int index) {
+                return PokemonCard(_pokemons[index]);
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return SizedBox(
+                  height: 10,
+                );
+              }),
+        ])));
   }
 
   void fetchPaginedPokemon(int offset, int limit) {
