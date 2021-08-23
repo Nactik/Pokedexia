@@ -51,7 +51,6 @@ class PokemonInfoHeader extends StatelessWidget {
               tag: _pokemon.id,
               child: Image(
                 image: NetworkImage(_pokemon.sprites.frontDefault),
-                fit: BoxFit.fitWidth,
               ),
             ),
           ),
